@@ -19,7 +19,13 @@
 
 <body>
 	<jsp:include page="/public/public-nav.jsp"/>
-	<h2>Index</h2>
+	<div class="container">
+		<div class="row">
+			<div class="col">
+				<h2>Index</h2>
+			</div>
+		</div>
+	</div>
 </body>
 
 </html>
