@@ -19,7 +19,6 @@ public class Usuario {
 	}
 	
 	
-	
 	public Usuario(String nome, String cpf, Date dataNascimento, String email, String password, String usuario,
 			boolean ativo) {
 		super();

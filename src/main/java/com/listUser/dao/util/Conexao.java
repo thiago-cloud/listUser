@@ -9,6 +9,8 @@ import javax.sql.DataSource;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 
+
+// Essa classe conexão e responsavel por acessar o pool de conexão com banco de dados
 public class Conexao {
 	
 	// Pool de conexão
