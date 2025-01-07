@@ -90,7 +90,16 @@ public class IndexController extends HttpServlet {
 			Usuario usuario = new Usuario(name, cpf, date, email, password, user, false);
 			
 			// Inserindo os dados no usuarioDAO
-			usuarioDAO.inserirUsuario(usuario);
+			Usuario usuarioSalvo = usuarioDAO.inserirUsuario(usuario);
+			
+			// Quando todos os dados forem preenchido redirecione para mesma página
+			RequestDispatcher dispatcher = request.getRequestDispatcher("public/public-new-user.jsp");
+			
+			// Na variável mensagem da página html public-new-user coloque a mensagem "Usuário cadastrado com sucesso" toda vez que for enviados os dados
+			request.setAttribute("mensagem", "Usuário cadastrado com sucesso");
+			dispatcher.forward(request, response);
+			
+		
 		}
 	}
 
