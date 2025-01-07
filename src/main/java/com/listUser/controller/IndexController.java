@@ -2,6 +2,7 @@ package com.listUser.controller;
 
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.Date;
 
 import javax.servlet.RequestDispatcher;
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.listUser.controller.util.ManipulacaoDado;
+import com.listUser.dao.UsuarioDAO;
 import com.listUser.dao.util.Conexao;
 import com.listUser.model.Usuario;
 
@@ -22,9 +24,16 @@ import com.listUser.model.Usuario;
 public class IndexController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-  
+	private UsuarioDAO usuarioDAO;
+	
+	
     public IndexController() {
         super();
+    }
+    
+    // Inicializando a classe UsuarioDAO para que possa ser utilizada
+    public void init() {
+    	usuarioDAO = new UsuarioDAO();
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -63,7 +72,7 @@ public class IndexController extends HttpServlet {
 		}
 
 	private void salvarUsuario(HttpServletRequest request, HttpServletResponse response) 
-		throws ServletException, IOException {
+		throws ServletException, IOException, SQLException {
 		
 			// Capturando os dados do input através do getParameter
 			String name = request.getParameter("nome");
@@ -80,7 +89,8 @@ public class IndexController extends HttpServlet {
 			// capturando os dados de usuário
 			Usuario usuario = new Usuario(name, cpf, date, email, password, user, false);
 			
-			System.out.println(usuario);
+			// Inserindo os dados no usuarioDAO
+			usuarioDAO.inserirUsuario(usuario);
 		}
 	}
 
