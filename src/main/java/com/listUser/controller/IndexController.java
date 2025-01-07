@@ -2,6 +2,7 @@ package com.listUser.controller;
 
 import java.io.IOException;
 import java.sql.Connection;
+import java.util.Date;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,7 +11,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.listUser.controller.util.ManipulacaoDado;
 import com.listUser.dao.util.Conexao;
+import com.listUser.model.Usuario;
 
 /**
  * Servlet implementation class IndexController
@@ -43,6 +46,9 @@ public class IndexController extends HttpServlet {
 			case "novo":
 				novoUsuario(request, response);
 				break;
+			case "inserir":
+				salvarUsuario(request, response);
+				break;
 			}
 		}catch(Exception ex) {
 			throw new ServletException(ex);
@@ -52,18 +58,32 @@ public class IndexController extends HttpServlet {
 	private void novoUsuario(HttpServletRequest request, HttpServletResponse response) 
 		throws ServletException, IOException {
 		
-			Connection conexaoJDBC = Conexao.getConexao();
-			
-			if (conexaoJDBC != null) {
-				System.out.println("Conexão aberta");
-			}else {
-				System.out.println("Sem conexão");
-			}
-		
 			RequestDispatcher dispatcher = request.getRequestDispatcher("public/public-new-user.jsp");
 			dispatcher.forward(request, response);
 		}
+
+	private void salvarUsuario(HttpServletRequest request, HttpServletResponse response) 
+		throws ServletException, IOException {
+		
+			// Capturando os dados do input através do getParameter
+			String name = request.getParameter("nome");
+			String cpf = request.getParameter("cpf");
+			String email = request.getParameter("email");
+			String user = request.getParameter("user");
+			String password = request.getParameter("password");
+			String dataNascimento = request.getParameter("nascimento");
+			
+			// Intanciando a classe ManipulacaoDado e utilizando o método conversor de string para date
+			ManipulacaoDado manipulacaoData = new ManipulacaoDado();
+			Date date = manipulacaoData.converterStringData(dataNascimento);
+			
+			// capturando os dados de usuário
+			Usuario usuario = new Usuario(name, cpf, date, email, password, user, false);
+			
+			System.out.println(usuario);
+		}
 	}
+
 
 
 
