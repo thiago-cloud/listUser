@@ -7,7 +7,7 @@
 <head>
 
 	<meta charset="UTF-8">
-	<title>Cadastrar Usuário | userList</title>
+	<title>Cadastrar Usuário | listUser </title>
 
 	<link
 		href="${pageContext.request.contextPath}/resources/bootstrap-5.3.3-dist/css/bootstrap.min.css"
@@ -40,7 +40,7 @@
 
 					<div class="row mb-3">
 						<label class="col-sm-1 col-form-label">Nome</label>
-						<div class="col-sm-5">
+						<div class="col-sm-3">
 							<input class="form-control" type="text" name="nome">
 						</div>
 					</div>
@@ -63,25 +63,24 @@
 
 					<div class="row mb-3">
 						<label class="col-sm-1 col-form-label">Email</label>
-						<div class="col-sm-2">
+						<div class="col-sm-3">
 							<input class="form-control" type="text" name="email">
 						</div>
 					</div>
 
 					<div class="row mb-3">
 						<label class="col-sm-1 col-form-label">Usuário</label>
-						<div class="col-sm-2">
+						<div class="col-sm-3">
 							<input class="form-control" type="text" name="user">
 						</div>
 					</div>
 
 					<div class="row mb-3">
 						<label class="col-sm-1 col-form-label">Senha</label>
-						<div class="col-sm-2">
+						<div class="col-sm-3">
 							<input class="form-control" type="password" name="password">
 						</div>
 					</div>
-
 					<input class="btn btn-primary" type="submit" value="Salvar" />
 				</form>
 			</div>
