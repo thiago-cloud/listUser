@@ -38,12 +38,10 @@ public class IndexController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		processarRequisicao(request, response);
-		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		processarRequisicao(request, response);
-		doGet(request, response);
 	}
 	
 	//Aqui será tratada a requisição
