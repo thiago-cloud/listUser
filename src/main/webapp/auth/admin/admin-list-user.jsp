@@ -5,6 +5,9 @@
 <!-- Essa tag do jstl serve para fazer formatação de data "fmt" e a representação da tag -->
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
+<!-- Tag responsável pela tradução da página -->
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -31,17 +34,17 @@
 		<div class="row">
 			<div class="col">
 				<h2>
-					Usuários
+					<fmt:message key="admin-list-user.usuario"/>
 				</h2>
 				<table class="table table-striped">
 					<thead>
 						<tr>
 							<th>Id</th>
-							<th>Nome</th>
-							<th>Cpf</th>
-							<th>Nascimento</th>
-							<th>E-mail</th>
-							<th>Ativado?</th>
+							<th><fmt:message key="admin-list-user.nome"/></th>
+							<th><fmt:message key="admin-list-user.cpf"/></th>
+							<th><fmt:message key="admin-list-user.nascimento"/></th>
+							<th><fmt:message key="admin-list-user.email"/></th>
+							<th><fmt:message key="admin-list-user.ativado"/>?</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -58,13 +61,27 @@
 								<td><c:out value="${usuario.email}" /></td>
 								<td>
 									<!-- Esse if ternario mostra que se o usuario e == true mostre ATIVO senão mostre NÃO ATIVO -->
-									<span> <c:out value= "${usuario.ativo=='true' ? 'ATIVO' : 'NÃO ATIVO'}" /> </span>
+									<!--<span> <c:out value= "${usuario.ativo=='true' ? 'Ativo' : 'Não Ativo' }" /> </span>-->
+									<!-- O choose ser como um operador ternario ou if else em jstl -->
+									<c:choose>
+									  <c:when test="${usuario.ativo=='true'}">
+									    <span> 
+									    	<fmt:message key="admin-listar-usuario.ativo" />
+									    </span>
+									  </c:when>									  
+									  <c:otherwise>
+									    <span> 
+									    	<fmt:message key="admin-listar-usuario.naoativo" />
+									    </span>
+									  </c:otherwise>
+									</c:choose>	
+									
 								</td>
 								<td> 																			
 									<a class="btn btn-outline-danger btn-sm"
-									onclick="return confirm('Você deseja apagar?');"
+									onclick="return confirm('<fmt:message key="admin-list-user.confirmacaoapagar"/>');"
 									href="${pageContext.request.contextPath}/auth/admin?acao=apagar&id=<c:out value="${usuario.id}" />">
-										Apagar
+										<fmt:message key="admin-list-user.apagar"/>
 									</a>
 								</td>	
 							</tr>

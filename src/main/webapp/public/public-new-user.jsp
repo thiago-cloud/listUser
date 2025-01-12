@@ -2,12 +2,16 @@
     pageEncoding="UTF-8"%>
 <!-- Jstl-->
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
+<!-- Tag responsável pela tradução da página -->
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+
 <!DOCTYPE html>
 <html>
 <head>
 
 	<meta charset="UTF-8">
-	<title>Cadastrar Usuário | listUser </title>
+	<title><fmt:message key="public-new-user.title"/></title>
 
 	<link
 		href="${pageContext.request.contextPath}/resources/bootstrap-5.3.3-dist/css/bootstrap.min.css"
@@ -24,13 +28,13 @@
 	<div class="container">
 		<div class="row">
 			<div class="col">
-				<h2>Cadastrar novo usuário</h2>
+				<h2><fmt:message key="public-new-user.cadastro"/></h2>
 
 				<!--Para a estrutura condicional funcionar e necessário inserir o jstl-->
 				<c:if test="${mensagem != null}">
 				 	<div class="alert alert-success alert-dismissible fade show">
 						<button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-						<span><c:out value="${mensagem}" /></span>
+						<span><!--<c:out value="${mensagem}" />--> <fmt:message key="public-new-user.mensagem"/></span>
 					</div>
 				</c:if>
 
@@ -39,14 +43,14 @@
 					method="post">
 
 					<div class="row mb-3">
-						<label class="col-sm-1 col-form-label">Nome</label>
+						<label class="col-sm-1 col-form-label"><fmt:message key="public-new-user.nome"/></label>
 						<div class="col-sm-3">
 							<input class="form-control" type="text" name="nome">
 						</div>
 					</div>
 
 					<div class="row mb-3">
-						<label class="col-sm-1 col-form-label">CPF</label>
+						<label class="col-sm-1 col-form-label"><fmt:message key="public-new-user.cpf"/></label>
 						<div class="col-sm-3">
 							<input class="form-control" type="text" name="cpf">
 						</div>
@@ -54,7 +58,7 @@
 
 
 					<div class="row mb-3">
-						<label class="col-sm-1 col-form-label">Nascimento</label>
+						<label class="col-sm-1 col-form-label"><fmt:message key="public-new-user.nascimento"/></label>
 						<div class="col-sm-3">
 							<input class="form-control" type="text" name="nascimento">
 						</div>
@@ -62,26 +66,27 @@
 
 
 					<div class="row mb-3">
-						<label class="col-sm-1 col-form-label">Email</label>
+						<label class="col-sm-1 col-form-label"><fmt:message key="public-new-user.email"/></label>
 						<div class="col-sm-3">
 							<input class="form-control" type="text" name="email">
 						</div>
 					</div>
 
 					<div class="row mb-3">
-						<label class="col-sm-1 col-form-label">Usuário</label>
+						<label class="col-sm-1 col-form-label"><fmt:message key="public-new-user.usuario"/></label>
 						<div class="col-sm-3">
 							<input class="form-control" type="text" name="user">
 						</div>
 					</div>
 
 					<div class="row mb-3">
-						<label class="col-sm-1 col-form-label">Senha</label>
+						<label class="col-sm-1 col-form-label"><fmt:message key="public-new-user.senha"/></label>
 						<div class="col-sm-3">
 							<input class="form-control" type="password" name="password">
 						</div>
 					</div>
-					<input class="btn btn-primary" type="submit" value="Salvar" />
+					<button class="btn btn-primary" type="submit" ><fmt:message key="public-new-user.btn"/></button>
+					<!--<input class="btn btn-primary" type="submit" value="Salvar" />-->
 				</form>
 			</div>
 		</div>
