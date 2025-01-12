@@ -1,9 +1,11 @@
 package com.listUser.controller;
 
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Date;
+import java.util.Locale;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,7 +13,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.jsp.jstl.core.Config;
 
+import com.listUser.controller.i18n.I18nUtil;
+import com.listUser.controller.security.Criptografia;
 import com.listUser.controller.util.ManipulacaoDado;
 import com.listUser.dao.UsuarioDAO;
 import com.listUser.dao.util.Conexao;
@@ -45,7 +50,7 @@ public class IndexController extends HttpServlet {
 	}
 	
 	//Aqui será tratada a requisição
-	protected void processarRequisicao(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void processarRequisicao(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, NullPointerException {
 		String acao = request.getParameter("acao");// pegando o dado do link novo usuario através do parametro acao
 		// Tratativa do parametro acao
 		try {
@@ -70,7 +75,7 @@ public class IndexController extends HttpServlet {
 		}
 
 	private void salvarUsuario(HttpServletRequest request, HttpServletResponse response) 
-		throws ServletException, IOException, SQLException {
+		throws ServletException, IOException, SQLException, NoSuchAlgorithmException {
 		
 			// Capturando os dados do input através do getParameter
 			String name = request.getParameter("nome");
@@ -80,12 +85,16 @@ public class IndexController extends HttpServlet {
 			String password = request.getParameter("password");
 			String dataNascimento = request.getParameter("nascimento");
 			
+			// Criptografando a senha
+			String senhaCriptografada = Criptografia.converterParaMD5(password);
+			
+			
 			// Intanciando a classe ManipulacaoDado e utilizando o método conversor de string para date
 			ManipulacaoDado manipulacaoData = new ManipulacaoDado();
 			Date date = manipulacaoData.converterStringData(dataNascimento);
 			
 			// capturando os dados de usuário
-			Usuario usuario = new Usuario(name, cpf, date, email, password, user, false);
+			Usuario usuario = new Usuario(name, cpf, date, email, senhaCriptografada, user, false);
 			
 			// Inserindo os dados no usuarioDAO
 			Usuario usuarioSalvo = usuarioDAO.inserirUsuario(usuario);
@@ -93,8 +102,21 @@ public class IndexController extends HttpServlet {
 			// Quando todos os dados forem preenchido redirecione para mesma página
 			RequestDispatcher dispatcher = request.getRequestDispatcher("public/public-new-user.jsp");
 			
+			// Pegando o locale
+			Locale locale = (Locale) Config.get(request.getSession(), Config.FMT_LOCALE);
+			
+			if (locale == null) {
+				locale = new Locale("pt", "BR");//padrão
+			}
+			
+			// Instanciando a classe responsável pela logica de tradução da mensagem
+			I18nUtil i18nUtil = new I18nUtil();
+			
+			String texto = i18nUtil.getMensagem(locale, "public-new-user.mensagem");
+
+			
 			// Na variável mensagem da página html public-new-user coloque a mensagem "Usuário cadastrado com sucesso" toda vez que for enviados os dados
-			request.setAttribute("mensagem", "Usuário cadastrado com sucesso");
+			request.setAttribute("mensagem", texto);
 			dispatcher.forward(request, response);
 			
 		
