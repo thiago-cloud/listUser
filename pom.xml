@@ -46,7 +46,7 @@
 			<version>2.9.0</version>
 		</dependency>
 		
-		<!--Classe responsável por auxiliar a fazer a criptografia-->
+		<!--Classe responsável por auxiliar na criptografia-->
 		<dependency>
 			<groupId>commons-codec</groupId>
 			<artifactId>commons-codec</artifactId>
