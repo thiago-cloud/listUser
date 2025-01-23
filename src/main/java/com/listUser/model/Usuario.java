@@ -1,6 +1,7 @@
 package com.listUser.model;
 
 import java.util.Date;
+import java.util.List;
 
 public class Usuario {
 	private Long id;
@@ -12,12 +13,13 @@ public class Usuario {
 	private String Usuario;
 	private boolean ativo;
 	
+	// O usuário poderá ser um Admin ou um bibliotecario
+	private List<Papel> papeis;
 	
 	// Construtor vazio
 	public Usuario() {
 		super();
 	}
-	
 	
 	public Usuario(String nome, String cpf, Date dataNascimento, String email, String password, String usuario,
 			boolean ativo) {
@@ -31,15 +33,12 @@ public class Usuario {
 		this.ativo = ativo;
 	}
 
-
 	// Testar se os métodos estão sendo pegos
 	@Override
 	public String toString() {
 		return "Usuario [nome=" + nome + ", cpf=" + cpf + ", dataNascimento=" + dataNascimento + ", email=" + email
 				+ ", password=" + password + ", Usuario=" + Usuario + ", ativo=" + ativo + "]";
 	}
-
-
 
 	public Long getId() {
 		return id;
@@ -96,4 +95,15 @@ public class Usuario {
 	public void setAtivo(boolean ativo) {
 		this.ativo = ativo;
 	}
+
+	public List<Papel> getPapeis() {
+		return papeis;
+	}
+
+	public void setPapeis(List<Papel> papeis) {
+		this.papeis = papeis;
+	}
+	
+	
+	
 }
