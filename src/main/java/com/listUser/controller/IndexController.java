@@ -18,8 +18,10 @@ import javax.servlet.jsp.jstl.core.Config;
 import com.listUser.controller.i18n.I18nUtil;
 import com.listUser.controller.security.Criptografia;
 import com.listUser.controller.util.ManipulacaoDado;
+import com.listUser.dao.PapelDAO;
 import com.listUser.dao.UsuarioDAO;
 import com.listUser.dao.util.Conexao;
+import com.listUser.model.Papel;
 import com.listUser.model.Usuario;
 
 /**
@@ -28,17 +30,20 @@ import com.listUser.model.Usuario;
 @WebServlet("/public")
 public class IndexController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+    
+	// Inserção dos DAO
 	private UsuarioDAO usuarioDAO;
+	private PapelDAO papelDAO;
 	
 	
     public IndexController() {
         super();
     }
     
-    // Inicializando a classe UsuarioDAO para que possa ser utilizada
+    // Inicializando o método init() que criara o objeto usuarioDAO e papelDAO para que possa ser utilizada
     public void init() {
     	usuarioDAO = new UsuarioDAO();
+    	papelDAO = new PapelDAO();
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -98,6 +103,14 @@ public class IndexController extends HttpServlet {
 			
 			// Inserindo os dados no usuarioDAO
 			Usuario usuarioSalvo = usuarioDAO.inserirUsuario(usuario);
+			
+			// Atribuir um papael ao usuário após salvar no banco de dados
+			// Todo o usuário salvo no banco de dados receberar o papel padrão como USER
+			// Nesse ponto temos o objeto papel que foi buscado também no banco de dados com id do usuario
+			Papel papel = papelDAO.buscarPapelPorTipo("USER");
+			
+			// Atribuindo um papel para um determinado usuário na tabela usuario_papel após o usuário ser salvo no banco de dados.
+			papelDAO.atribuirPapelUsuario(papel, usuarioSalvo);
 			
 			// Quando todos os dados forem preenchido redirecione para mesma página
 			RequestDispatcher dispatcher = request.getRequestDispatcher("public/public-new-user.jsp");
