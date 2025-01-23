@@ -75,8 +75,15 @@
 									    </span>
 									  </c:otherwise>
 									</c:choose>	
-									
 								</td>
+								
+								<!-- Listar papeis do usuário -->
+								<td>
+									<c:forEach var="papel" items="${usuario.papeis}">
+										<span><c:out value="${papel.tipoPapel}"/></span><br/>
+									</c:forEach>
+								</td>
+								
 								<td> 																			
 									<a class="btn btn-outline-danger btn-sm"
 									onclick="return confirm('<fmt:message key="admin-list-user.confirmacaoapagar"/>');"
