@@ -20,8 +20,6 @@ public class I18nController extends HttpServlet {
     public I18nController() {
         super();
     }
-
-	
 	
 	protected void service(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
