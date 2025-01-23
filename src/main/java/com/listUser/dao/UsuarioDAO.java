@@ -10,11 +10,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.listUser.dao.util.Conexao;
+import com.listUser.model.Papel;
 import com.listUser.model.Usuario;
 
 public class UsuarioDAO {
 	
-private Connection connection;
+	private Connection connection;
 	
 	// Se a conexão for igual a null ou estiver aberta retorne conexão ocupada
 	private void conectar() throws SQLException {
@@ -69,6 +70,8 @@ private Connection connection;
 	// Método de listar todos os usuários
 	public List<Usuario> listarTodosUsuarios() throws SQLException {
 		
+		PapelDAO papelDAO = new PapelDAO();
+		
 		// Variavel do tipo List<Usuario> onde as linhas de dados ficarão armazenadas
 		List<Usuario> listaUsuarios = new ArrayList<Usuario>();
 
@@ -96,6 +99,12 @@ private Connection connection;
 			// Colocamos todos os dados do banco dentro do objeto usuário do tipo Usuário
 			Usuario usuario = new Usuario(nome, cpf, nascimento, email, password, user, ativo);
 			usuario.setId(id);
+			
+			// Pegando os papeis do usuário
+			List<Papel> papeis = papelDAO.buscarPapelUsuario(usuario);
+			
+			//Inserindo os papeis no objeto usuário dentro da lista: List<Papel> papeis;
+			usuario.setPapeis(papeis);
 			
 			// Agora colocaremos todos os dados que estár como objeto dentro da varivel listaUsuário
 			listaUsuarios.add(usuario);
