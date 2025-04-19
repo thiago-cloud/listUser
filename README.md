@@ -2,10 +2,6 @@
 
 Aplicação de listagem de usuários desenvolvida com **Jakarta EE**.
 
-## ✨ Descrição
-
-O projeto **listUser** tem como objetivo listar, cadastrar e manipular dados de usuários através de uma aplicação web utilizando **Jakarta EE**, desenvolvida para o Java corporativo.
-
 ---
 
 ## 🎯 Funcionalidades
